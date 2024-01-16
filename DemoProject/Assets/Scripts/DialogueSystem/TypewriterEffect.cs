@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class TypewriterEffect : MonoBehaviour
 {
-    [SerializeField]
-    private uint m_type_speed = 30;
-
-    public void Run(string text, TMP_Text text_label)
+    public Coroutine Run(DialogueDefination dialogue, TMP_Text text_label, float type_speed)
     {
-        StartCoroutine(TypeText(text, text_label));
+        return StartCoroutine(TypeText(dialogue, text_label, type_speed));
     }
 
-    private IEnumerator TypeText(string text, TMP_Text text_label)
+    private IEnumerator TypeText(DialogueDefination dialogue, TMP_Text text_label, float type_speed)
     {
         text_label.text = string.Empty;
-
-        yield return new WaitForSeconds(1.5f);
 
         float time = 0f;
         int index = 0;
 
+        string text = dialogue.m_text;
+
         while(index < text.Length)
         {
-            time += (Time.deltaTime * m_type_speed);
+            time += (Time.deltaTime * type_speed);
             index = Mathf.Clamp(Mathf.FloorToInt(time), 0, text.Length);
 
             text_label.text = text[..index];
@@ -33,5 +30,4 @@ public class TypewriterEffect : MonoBehaviour
 
         text_label.text = text;
     }
-
 }
