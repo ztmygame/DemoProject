@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class DialogueDefination
+public class Dialogue
 {
     [TextArea] public string m_text;
 }

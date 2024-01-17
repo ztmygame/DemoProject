@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TypewriterEffect : MonoBehaviour
 {
-    public Coroutine Run(DialogueDefination dialogue, TMP_Text text_label, float type_speed)
+    public Coroutine Run(Dialogue dialogue, TMP_Text text_label, float type_speed)
     {
         return StartCoroutine(TypeText(dialogue, text_label, type_speed));
     }
 
-    private IEnumerator TypeText(DialogueDefination dialogue, TMP_Text text_label, float type_speed)
+    private IEnumerator TypeText(Dialogue dialogue, TMP_Text text_label, float type_speed)
     {
         text_label.text = string.Empty;
 
