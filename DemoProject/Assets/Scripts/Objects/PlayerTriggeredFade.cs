@@ -12,10 +12,10 @@ public class PlayerTriggeredFade : MonoBehaviour
 
     public void FadeOut()
     {
-        Color target_color = new Color(1, 1, 1, Configurations.m_target_alpha);
+        Color target_color = new Color(1, 1, 1, GameplaySettings.m_target_alpha);
         foreach(SpriteRenderer renderer in m_sprite_renderers)
         {
-            renderer.DOColor(target_color, Configurations.m_fade_duration);
+            renderer.DOColor(target_color, GameplaySettings.m_fade_duration);
         }
     }
 
@@ -24,7 +24,7 @@ public class PlayerTriggeredFade : MonoBehaviour
         Color target_color = new Color(1, 1, 1, 1);
         foreach (SpriteRenderer renderer in m_sprite_renderers)
         {
-            renderer.DOColor(target_color, Configurations.m_fade_duration);
+            renderer.DOColor(target_color, GameplaySettings.m_fade_duration);
         }
     }
 }

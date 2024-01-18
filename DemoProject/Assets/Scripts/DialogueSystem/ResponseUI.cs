@@ -20,6 +20,7 @@ public class ResponseUI : MonoBehaviour
 
     public void ShowResponses(List<Response> responses)
     {
+        m_panel_transform.gameObject.SetActive(true);
         foreach (Response response in responses)
         {
             if(response.m_text == string.Empty)
