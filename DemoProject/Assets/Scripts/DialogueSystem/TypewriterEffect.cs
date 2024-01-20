@@ -2,6 +2,11 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+/*
+ * [legacy]
+ * Typewriter effect is now implemented in AdvancedTMProUGUI to accommodate TMPro's rich text (aka styled text).
+ */
+
 public class TypewriterEffect : MonoBehaviour
 {
     public Coroutine Run(Dialogue dialogue, TMP_Text text_label, float type_speed)

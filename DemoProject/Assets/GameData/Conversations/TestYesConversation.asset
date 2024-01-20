@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestYesConversation
   m_EditorClassIdentifier: 
   m_dialogues:
-  - m_text: feels not as good as Genshin Impact..
+  - m_text: feels not as good as <size=100> Genshin Impact</size>..
   m_responses:
   - m_text: 
     m_next_dialogue: {fileID: 0}

@@ -16,8 +16,9 @@ public class GameplaySettings
 
     #region dialogue system
 
-    public const uint m_type_speed = 30;
+    public const uint  m_type_speed = 50;
     public const float m_wait_time = 0.0f;
+    public const float m_character_fade_in_duration = 0.08f;
 
     #endregion
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TestConversation
   m_EditorClassIdentifier: 
   m_dialogues:
-  - m_text: agbfagrbng
-  - m_text: cccccc
+  - m_text: ag <b><i>definit<>ely not</i></b>fagrbng
+  - m_text: "<color=green>green</color> \u2014\u2014<0.9>cccc<sprite=1>cc"
   - m_text: '?'
   m_responses:
   - m_text: 1
