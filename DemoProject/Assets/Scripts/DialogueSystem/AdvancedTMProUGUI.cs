@@ -137,9 +137,11 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
     {
         textPreprocessor = new AdvancedTextPreprocessor();
     }
-    protected override void Start()
+
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
+
         m_ruby_prefab = Resources.Load<GameObject>("RubyText");
         m_ruby_text_objects = new List<GameObject>();
     }

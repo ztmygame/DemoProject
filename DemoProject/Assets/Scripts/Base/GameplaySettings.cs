@@ -17,8 +17,9 @@ public class GameplaySettings
     #region dialogue system
 
     public const uint  m_type_speed = 50;
-    public const float m_wait_time = 0.0f;
     public const float m_character_fade_in_duration = 0.08f;
+    public const float m_dialogue_box_fadein_duration = 0.8f;
+    public const float m_dialogue_box_fadeout_duration = 0.5f;
 
     #endregion
 }

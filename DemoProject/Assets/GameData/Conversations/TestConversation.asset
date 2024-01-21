@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: TestConversation
   m_EditorClassIdentifier: 
   m_dialogues:
-  - m_text: "testtest<b>test</b><r=\u6D4B\u8BD5>test</r>"
+  - m_text: "testtest<b>test</b><r=\u6D4B\u8BD5>test</r>\n<style=red>hello</style>
+      <style=blue>world</style>"
   - m_text: "\u3002<color=green><r=green>\u7EFF\u8272</r></color> \u2014\u2014<0.9>cccc<sprite=1>cc"
   - m_text: '?'
   m_responses:

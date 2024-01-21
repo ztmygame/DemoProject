@@ -1,15 +1,21 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class DialogueUI : MonoBehaviour
 {
     private TMP_Text m_text_label;
     private GameObject m_dialogue_box;
 
+    [SerializeField]
+    private FadeEffect m_fade_effect;
+
     public bool m_is_showing { get; private set; }
 
     private ResponseUI m_response_handler;
+
+    private Conversation m_current_conversation;
 
     private void Start()
     {
@@ -23,9 +29,13 @@ public class DialogueUI : MonoBehaviour
 
     public void StartConversation(Conversation conversation)
     {
-        m_is_showing = true;
-        m_dialogue_box.SetActive(true);
-        StartCoroutine(StepThroughDialogueDataList(conversation));
+        m_current_conversation = conversation;
+        OpenDialogueBox(ShowDialogueText);
+    }
+
+    public void ShowDialogueText()
+    {
+        StartCoroutine(StepThroughDialogueDataList(m_current_conversation));
     }
 
     private IEnumerator StepThroughDialogueDataList(Conversation conversation)
@@ -34,7 +44,6 @@ public class DialogueUI : MonoBehaviour
         {
             Dialogue dialogue = conversation.m_dialogues[i];
 
-            yield return new WaitForSeconds(GameplaySettings.m_wait_time);
             yield return m_text_label.GetComponent<AdvancedTMProUGUI>().ShowText(dialogue);
 
             // show response boxes for the last dialogue instead of waiting for key down 
@@ -56,10 +65,22 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
+    public void OpenDialogueBox(Action callback)
+    {
+        m_is_showing = true;
+        m_dialogue_box.SetActive(true);
+        m_dialogue_box.GetComponent<FadeEffect>()?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
+    }
+
     public void CloseDialogueBox()
     {
         m_is_showing = false;
-        m_dialogue_box.SetActive(false);
         m_text_label.text = string.Empty;
+        m_dialogue_box.GetComponent<FadeEffect>()?.Fade(0.0f, GameplaySettings.m_dialogue_box_fadein_duration, SetDialogueBoxInactive);
+    }
+
+    public void SetDialogueBoxInactive()
+    {
+        m_dialogue_box.SetActive(false);
     }
 }
