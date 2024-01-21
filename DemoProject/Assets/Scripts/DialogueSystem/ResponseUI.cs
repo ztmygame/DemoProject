@@ -46,9 +46,9 @@ public class ResponseUI : MonoBehaviour
         }
         m_response_boxes.Clear();
 
-        if (response.m_next_dialogue)
+        if (response.m_next_conversation)
         {
-            m_dialogue_panel.ShowDialogue(response.m_next_dialogue);
+            m_dialogue_panel.StartConversation(response.m_next_conversation);
         }
         else
         {

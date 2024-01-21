@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 36802006}
   - component: {fileID: 36802008}
   - component: {fileID: 36802007}
+  - component: {fileID: 36802009}
   m_Layer: 5
   m_Name: ResponcePanel
   m_TagString: Untagged
@@ -202,6 +203,14 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!222 &36802009
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36802005}
+  m_CullTransparentMesh: 1
 --- !u!1 &107195125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,7 +1558,7 @@ GameObject:
   - component: {fileID: 1642768603}
   - component: {fileID: 1642768605}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1602,10 +1611,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Line 1\nTE<size=70>(\u2299\uFE4F\u2299)ST</size>\xA9\n\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4"
+  m_text: "012345<r=xxx>678</r>\nTE<size=70>(\u2299\uFE4F\u2299)ST</size>\xA9xxx<sprite=6>\n\u6B6A\u6BD4\u6B6A\u6BD4<i>\u6B6A<r=xxxx>\u6BD4</i></r><b>\u6B6A\u6BD4</b>\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4\u6B6A\u6BD4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bf9a768687594214fac99de71411ea5f, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: bf9a768687594214fac99de71411ea5f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

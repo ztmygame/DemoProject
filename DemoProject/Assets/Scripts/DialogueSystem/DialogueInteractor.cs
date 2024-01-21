@@ -7,7 +7,7 @@ public class DialogueInteractor : MonoBehaviour, IInteractable
 
     public void Interact(PlayerController player)
     {
-        player.m_dialogue_ui.ShowDialogue(m_conversation);
+        player.m_dialogue_ui.StartConversation(m_conversation);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

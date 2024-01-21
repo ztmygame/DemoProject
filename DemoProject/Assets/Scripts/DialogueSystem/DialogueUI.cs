@@ -21,7 +21,7 @@ public class DialogueUI : MonoBehaviour
         CloseDialogueBox();
     }
 
-    public void ShowDialogue(Conversation conversation)
+    public void StartConversation(Conversation conversation)
     {
         m_is_showing = true;
         m_dialogue_box.SetActive(true);

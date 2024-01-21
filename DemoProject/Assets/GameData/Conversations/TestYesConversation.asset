@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TestYesConversation
   m_EditorClassIdentifier: 
   m_dialogues:
-  - m_text: feels not as good as <size=100> Genshin Impact</size>..
+  - m_text: "\u611F\u89C9\u4E0D\u5982<2><size=100><r=genshin impact><b>\u539F\u795E</r></b></size>\u3002\u3002\u3002"
   m_responses:
   - m_text: 
-    m_next_dialogue: {fileID: 0}
+    m_next_conversation: {fileID: 0}
   - m_text: 
-    m_next_dialogue: {fileID: 0}
+    m_next_conversation: {fileID: 0}
