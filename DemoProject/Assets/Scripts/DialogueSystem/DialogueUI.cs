@@ -5,11 +5,11 @@ using System;
 
 public class DialogueUI : MonoBehaviour
 {
-    private TMP_Text m_text_label;
+    private AdvancedTMProUGUI m_text_label;
     private GameObject m_dialogue_box;
 
     [SerializeField]
-    private FadeEffect m_fade_effect;
+    private FadeEffect m_box_fade_effect;
 
     public bool m_is_showing { get; private set; }
 
@@ -19,7 +19,7 @@ public class DialogueUI : MonoBehaviour
 
     private void Start()
     {
-        m_text_label = GetComponentInChildren<TMP_Text>();
+        m_text_label = GetComponentInChildren<AdvancedTMProUGUI>();
         m_dialogue_box = m_text_label.gameObject.transform.parent.gameObject;
 
         m_response_handler = GetComponentInChildren<ResponseUI>();
@@ -69,6 +69,7 @@ public class DialogueUI : MonoBehaviour
     {
         m_is_showing = true;
         m_dialogue_box.SetActive(true);
+        m_dialogue_box.GetComponentInChildren<AdvancedTMProUGUI>()?.Initialize();
         m_dialogue_box.GetComponent<FadeEffect>()?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
     }
 
@@ -76,6 +77,7 @@ public class DialogueUI : MonoBehaviour
     {
         m_is_showing = false;
         m_text_label.text = string.Empty;
+        m_text_label.ClearAllRubyText();
         m_dialogue_box.GetComponent<FadeEffect>()?.Fade(0.0f, GameplaySettings.m_dialogue_box_fadein_duration, SetDialogueBoxInactive);
     }
 

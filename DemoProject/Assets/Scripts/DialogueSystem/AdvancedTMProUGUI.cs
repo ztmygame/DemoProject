@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -129,13 +130,31 @@ public class AdvancedTextPreprocessor : ITextPreprocessor
 
 public class AdvancedTMProUGUI : TextMeshProUGUI
 {
-    private GameObject m_ruby_prefab;
+    public enum TextDisplayMethod
+    {
+        Default = 0,
+        FadingIn,
+        Typing,
+    }
 
+    // ruby text
+    private GameObject m_ruby_prefab;
     private List<GameObject> m_ruby_text_objects;
+
+    public Action m_finish_action;
+
+    private Coroutine m_typing_coroutine;
+    private int m_typing_index;
+
+    [HideInInspector]
+    public FadeEffect m_text_fade_effect;
+
+    private AdvancedTextPreprocessor m_custom_text_preprocessor;
 
     public AdvancedTMProUGUI()
     {
         textPreprocessor = new AdvancedTextPreprocessor();
+        m_custom_text_preprocessor = textPreprocessor as AdvancedTextPreprocessor;
     }
 
     protected override void Awake()
@@ -144,23 +163,60 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
         m_ruby_prefab = Resources.Load<GameObject>("RubyText");
         m_ruby_text_objects = new List<GameObject>();
+
+        m_text_fade_effect = gameObject.AddComponent<FadeEffect>();
     }
 
     public void Initialize()
     {
-        foreach(GameObject ruby in m_ruby_text_objects)
-        {
-            Destroy(ruby);
-        }
-        m_ruby_text_objects.Clear();
+        SetText("");
+        ClearAllRubyText();
     }
 
-    public Coroutine ShowText(Dialogue dialogue)
+    public IEnumerator ShowText(Dialogue dialogue, TextDisplayMethod method = TextDisplayMethod.FadingIn)
     {
         Initialize();
 
+        if(m_typing_coroutine != null)
+        {
+            StopCoroutine(m_typing_coroutine);
+        }
+        ClearAllRubyText();
+
         SetText(dialogue.m_text);
-        return StartCoroutine(Typing());
+        yield return null;  // wait one frame for text preprocessing
+
+        switch (method)
+        {
+            case TextDisplayMethod.Default:
+            {
+                m_text_fade_effect.m_render_opacity = 1.0f;
+                CreateAllRubyText();
+                break;
+            }
+            case TextDisplayMethod.FadingIn:
+            {
+                m_text_fade_effect.m_render_opacity = 0.1f;
+                m_text_fade_effect.Fade(1.0f, GameplaySettings.m_character_fade_in_duration, m_finish_action);
+
+                CreateAllRubyText();
+                foreach (GameObject ruby in m_ruby_text_objects)
+                {
+                    ruby.GetComponent<FadeEffect>()?.Fade(1.0f, GameplaySettings.m_character_fade_in_duration, null);
+                }
+                break;
+            }
+            case TextDisplayMethod.Typing:
+            {
+                m_text_fade_effect.Fade(1.0f, GameplaySettings.m_character_fade_in_duration, null);
+                StartCoroutine(Typing());
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
     }
 
     IEnumerator Typing()
@@ -172,13 +228,13 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
             ModifyCharacterAlphaAtIndex(i, 0);
         }
 
-        for (int i = 0; i < m_characterCount; ++i)
+        for (m_typing_index = 0; m_typing_index < m_characterCount; ++m_typing_index)
         {
             // display single character
-            yield return CharacterFadeIn(i);
+            yield return CharacterFadeIn(m_typing_index);
 
-            // pause
-            if ((textPreprocessor as AdvancedTextPreprocessor).m_pause_map.TryGetValue(i, out float pause_time))
+            // take a pause for next character
+            if (m_custom_text_preprocessor.m_pause_map.TryGetValue(m_typing_index, out float pause_time))
             {
                 yield return new WaitForSecondsRealtime(pause_time);
             }
@@ -188,14 +244,14 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
             }
         }
 
-        yield return null;
+        m_finish_action?.Invoke();
     }
 
     IEnumerator CharacterFadeIn(int index)
     {
-        if ((textPreprocessor as AdvancedTextPreprocessor).FindRubyAtBeginIndex(index, out RubyTextInfo ruby))
+        if (m_custom_text_preprocessor.FindRubyAtBeginIndex(index, out RubyTextInfo ruby))
         {
-            CreateRubyText(ruby);
+            CreateSingleRubyText(ruby);
         }
 
         float duration = GameplaySettings.m_character_fade_in_duration;
@@ -234,13 +290,47 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         UpdateVertexData();
     }
 
+    public void ClearCurrentText()
+    {
+        m_text_fade_effect?.Fade(0.0f, GameplaySettings.m_character_fade_out_duration, null);
+    }
 
-    private void CreateRubyText(RubyTextInfo ruby_text_info)
+    public void ShowRemainingText()
+    {
+        if(m_typing_coroutine != null)
+        {
+            StopCoroutine(m_typing_coroutine);
+
+            for (; m_typing_index < m_characterCount; ++m_typing_index)
+            {
+                StartCoroutine(CharacterFadeIn(m_typing_index));
+            }
+        }
+    }
+
+    private void CreateSingleRubyText(RubyTextInfo ruby_text_info)
     {
         GameObject ruby = Instantiate(m_ruby_prefab, transform);
         ruby.GetComponent<TextMeshProUGUI>().SetText(ruby_text_info.m_content);
         ruby.GetComponent<TextMeshProUGUI>().color = textInfo.characterInfo[ruby_text_info.m_begin_index].color;
         ruby.transform.localPosition = (textInfo.characterInfo[ruby_text_info.m_begin_index].topLeft + textInfo.characterInfo[ruby_text_info.m_end_index - 1].topRight) / 2.0f;
         m_ruby_text_objects.Add(ruby);
+    }
+
+    private void CreateAllRubyText()
+    {
+        foreach (RubyTextInfo info in m_custom_text_preprocessor.m_ruby_list)
+        {
+            CreateSingleRubyText(info);
+        }
+    }
+
+    public void ClearAllRubyText()
+    {
+        foreach (GameObject ruby in m_ruby_text_objects)
+        {
+            Destroy(ruby);
+        }
+        m_ruby_text_objects.Clear();
     }
 }
