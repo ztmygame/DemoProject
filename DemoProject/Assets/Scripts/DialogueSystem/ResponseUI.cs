@@ -12,7 +12,7 @@ public class ResponseUI : MonoBehaviour
 
     private void Start()
     {
-        // todo
+        // todo: use prefab
         m_response_box_template.SetActive(false);
 
         m_response_boxes = new List<GameObject>();

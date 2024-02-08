@@ -128,11 +128,13 @@ public class AdvancedTextPreprocessor : ITextPreprocessor
     }
 }
 
+[RequireComponent(typeof(FadeEffect))] // todo: ?
 public class AdvancedTMProUGUI : TextMeshProUGUI
 {
     public enum TextDisplayMethod
     {
-        Default = 0,
+        None = 0,
+        DirectShow,
         FadingIn,
         Typing,
     }
@@ -164,7 +166,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         m_ruby_prefab = Resources.Load<GameObject>("RubyText");
         m_ruby_text_objects = new List<GameObject>();
 
-        m_text_fade_effect = gameObject.AddComponent<FadeEffect>();
+        m_text_fade_effect = gameObject.GetComponent<FadeEffect>();
     }
 
     public void Initialize()
@@ -173,7 +175,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         ClearAllRubyText();
     }
 
-    public IEnumerator ShowText(Dialogue dialogue, TextDisplayMethod method = TextDisplayMethod.FadingIn)
+    public IEnumerator ShowText(Dialogue dialogue, TextDisplayMethod method)
     {
         Initialize();
 
@@ -188,10 +190,11 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
         switch (method)
         {
-            case TextDisplayMethod.Default:
+            case TextDisplayMethod.DirectShow:
             {
                 m_text_fade_effect.m_render_opacity = 1.0f;
                 CreateAllRubyText();
+                m_finish_action?.Invoke();
                 break;
             }
             case TextDisplayMethod.FadingIn:
@@ -209,7 +212,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
             case TextDisplayMethod.Typing:
             {
                 m_text_fade_effect.Fade(1.0f, GameplaySettings.m_character_fade_in_duration, null);
-                StartCoroutine(Typing());
+                m_typing_coroutine = StartCoroutine(Typing());
                 break;
             }
             default:
@@ -293,9 +296,10 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
     public void ClearCurrentText()
     {
         m_text_fade_effect?.Fade(0.0f, GameplaySettings.m_character_fade_out_duration, null);
+        Initialize();
     }
 
-    public void ShowRemainingText()
+    public void QuickShowRemainingText()
     {
         if(m_typing_coroutine != null)
         {
@@ -306,6 +310,8 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
                 StartCoroutine(CharacterFadeIn(m_typing_index));
             }
         }
+
+        m_finish_action?.Invoke();
     }
 
     private void CreateSingleRubyText(RubyTextInfo ruby_text_info)
@@ -313,6 +319,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         GameObject ruby = Instantiate(m_ruby_prefab, transform);
         ruby.GetComponent<TextMeshProUGUI>().SetText(ruby_text_info.m_content);
         ruby.GetComponent<TextMeshProUGUI>().color = textInfo.characterInfo[ruby_text_info.m_begin_index].color;
+        ruby.GetComponent<FadeEffect>().Fade(1.0f, (ruby_text_info.m_end_index - ruby_text_info.m_begin_index) * GameplaySettings.m_character_fade_in_duration, null);
         ruby.transform.localPosition = (textInfo.characterInfo[ruby_text_info.m_begin_index].topLeft + textInfo.characterInfo[ruby_text_info.m_end_index - 1].topRight) / 2.0f;
         m_ruby_text_objects.Add(ruby);
     }
