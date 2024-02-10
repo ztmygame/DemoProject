@@ -40,7 +40,7 @@ public class DialogueUI : MonoBehaviour
 
     private void Start()
     {
-        m_select_cursor_transform.gameObject.SetActive(false);
+        HideSelectCursor();
     }
 
     public void StartConversation(Conversation conversation)
@@ -178,5 +178,27 @@ public class DialogueUI : MonoBehaviour
         s_instance.m_select_cursor_transform.GetComponent<Animator>().SetTrigger(GameProperties.m_click_button_animation_hash);
     }
 
+    public static void HideSelectCursor()
+    {
+        s_instance.m_select_cursor_transform.gameObject.SetActive(false);
+    }
+
     #endregion select cursor
+
+    #region responses
+    public static void CreateResponseButtons(List<Response> responses, Action<int> confirm_callback, int default_select_index)
+    {
+        int index = 0;
+        foreach(Response response in responses)
+        {
+            if (response != null && !string.IsNullOrEmpty(response.m_text))
+            {
+                s_instance.m_response_handler.AddResponseButton(response, index++, confirm_callback);
+            }
+        }
+
+        s_instance.m_response_handler.Open(default_select_index);
+    }
+
+    #endregion responses
 }

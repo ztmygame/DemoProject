@@ -149,7 +149,7 @@ public class DialogueBox : MonoBehaviour
             m_is_interactable = true;
         }
 
-        m_text_content.StartCoroutine(m_text_content.ShowText(dialogue, next_text_method));
+        m_text_content.StartCoroutine(m_text_content.ShowText(dialogue.m_text, next_text_method));
     }
 
     public void Open(Action callback)

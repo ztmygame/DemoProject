@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
-  m_Name: EventShowDialogue
+  m_Name: EventShowDialogue 4
   m_EditorClassIdentifier: 
-  m_state: 2
+  m_state: 0
   m_dialogues:
   - m_speaker_name: "\u4EBAA"
-    m_speaker_avatar: {fileID: -492939638, guid: c80bd1c419bb64e91940022957a68245, type: 3}
-    m_text: "\u4F60\u597D\uFF0C\u8FD9\u662F\u7B2C\u4E00\u53E5\u8BDD"
+    m_speaker_avatar: {fileID: 679222839, guid: aa89013d6563345999cf8b2c28bdc86b, type: 3}
+    m_text: "<r=\"\u662F\u949D\u89D2\u5462\">obscure angle</r>"
     m_display_method: 3
     m_can_skip: 1
-  - m_speaker_name: "\u4EBAB"
-    m_speaker_avatar: {fileID: 434957261, guid: d5c3b16b1bba746d693bf0211c217664, type: 3}
-    m_text: "\u4F60\u597D\uFF0C\u8FD9\u662F\u7B2C\u4E8C\u53E5\u8BDD"
+  - m_speaker_name: "\u4EBAA"
+    m_speaker_avatar: {fileID: 759875714, guid: 08e068dcd0cbb42469d9275d6b0c667f, type: 3}
+    m_text: "\u662F\u949D\u89D2\u2026\u2026"
     m_display_method: 3
     m_can_skip: 1

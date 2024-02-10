@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -48,5 +49,23 @@ public class AdvancedButton : Button
     {
         m_animator.SetTrigger(GameProperties.m_click_button_animation_hash);
         DialogueUI.GetInstance().PlaySelectCursorAnimation();
+    }
+
+    public Action<int> m_confirmed_action;
+    private int m_response_index;
+
+    public void Initialize(string text, int index, Action<int> confirm_callback)
+    {
+        m_confirmed_action = confirm_callback;
+        m_response_index = index;
+
+        AdvancedTMProUGUI advanced_text = GetComponentInChildren<AdvancedTMProUGUI>();
+        // Debug.Log("Active? " + gameObject.activeInHierarchy);
+        advanced_text.StartCoroutine(advanced_text.ShowText(text, AdvancedTMProUGUI.TextDisplayMethod.FadingIn));
+    }
+
+    public void Confirm()
+    {
+        m_confirmed_action(m_response_index);
     }
 }

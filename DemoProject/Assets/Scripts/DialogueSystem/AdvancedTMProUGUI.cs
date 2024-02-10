@@ -175,7 +175,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         ClearAllRubyText();
     }
 
-    public IEnumerator ShowText(Dialogue dialogue, TextDisplayMethod method)
+    public IEnumerator ShowText(string text, TextDisplayMethod method)
     {
         Initialize();
 
@@ -185,7 +185,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         }
         ClearAllRubyText();
 
-        SetText(dialogue.m_text);
+        SetText(text);
         yield return null;  // wait one frame for text preprocessing
 
         switch (method)

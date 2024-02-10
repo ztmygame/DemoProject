@@ -1,18 +1,23 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(FadeEffect))]
 public class ResponseUI : MonoBehaviour
 {
     [SerializeField] private RectTransform m_panel_transform;
-    [SerializeField] private GameObject m_response_button_prefab;
     [SerializeField] private DialogueUI m_dialogue_panel;
-    private List<GameObject> m_response_boxes;
+    private GameObject m_response_button_prefab;
+    private List<AdvancedButton> m_buttons;
+    private FadeEffect m_fade_effect;
 
     private void Start()
     {
-        m_response_boxes = new List<GameObject>();
+        m_buttons = new List<AdvancedButton>();
+        m_response_button_prefab = Resources.Load<GameObject>("ResponseButton");
+        m_fade_effect = GetComponent<FadeEffect>();
     }
 
     public void ShowResponses(List<Response> responses)
@@ -30,18 +35,18 @@ public class ResponseUI : MonoBehaviour
             response_box.GetComponentInChildren<TMP_Text>().text = response.m_text;
             response_box.GetComponentInChildren<Button>().onClick.AddListener(() => OnResponseSelected(response));
 
-            m_response_boxes.Add(response_box);
+            m_buttons.Add(response_box.GetComponent<AdvancedButton>());
         }
     }
 
     private void OnResponseSelected(Response response)
     {
         m_panel_transform.gameObject.SetActive(false);
-        foreach(GameObject box in m_response_boxes)
+        foreach (AdvancedButton button in m_buttons)
         {
-            Destroy(box);
+            Destroy(button.gameObject);
         }
-        m_response_boxes.Clear();
+        m_buttons.Clear();
 
         if (response.m_next_conversation)
         {
@@ -51,6 +56,65 @@ public class ResponseUI : MonoBehaviour
         {
             DialogueUI.CloseDialogueBox(null);
         }
+    }
+
+    public void AddResponseButton(Response response, int index, Action<int> confirm_callback)
+    {
+        GameObject button_go = Instantiate(m_response_button_prefab);
+
+        AdvancedButton button = button_go.GetComponent<AdvancedButton>();
+
+        button.gameObject.name = "ResponseButton" + index;
+        button.Initialize(response.m_text, index, confirm_callback);
+
+        button.transform.SetParent(transform);
+        button.transform.localScale = Vector3.one;
+
+        button.onClick.AddListener(DisableAllButtons);
+        button.m_confirmed_action += (_) => { Close(); };
+
+        m_buttons.Add(button);
+    }
+
+    private void DisableAllButtons()
+    {
+        foreach (AdvancedButton button in m_buttons)
+        {
+            button.enabled = false;
+        }
+    }
+
+    public void Open(int default_select_index)
+    {
+        gameObject.SetActive(true);
+
+        m_fade_effect.m_render_opacity = 0.0f;
+        m_fade_effect.Fade(1.0f, GameplaySettings.m_response_fade_in_duration, () =>
+        {
+            if(default_select_index < m_buttons.Count)
+            {
+                m_buttons[default_select_index].Select();
+            }
+            else
+            {
+                m_buttons[0].Select();
+            }
+        });
+    }
+
+    public void Close()
+    {
+        DialogueUI.SetCurrentSelectable(null);
+        m_fade_effect.Fade(0.0f, GameplaySettings.m_response_fade_out_duration, () =>
+        {
+            foreach (AdvancedButton button in m_buttons)
+            {
+                Destroy(button.gameObject);
+            }
+            m_buttons.Clear();
+        });
+
+        DialogueUI.HideSelectCursor();
     }
 }
 
