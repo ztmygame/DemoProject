@@ -6,15 +6,12 @@ using UnityEngine.UI;
 public class ResponseUI : MonoBehaviour
 {
     [SerializeField] private RectTransform m_panel_transform;
-    [SerializeField] private GameObject m_response_box_template;
+    [SerializeField] private GameObject m_response_button_prefab;
     [SerializeField] private DialogueUI m_dialogue_panel;
     private List<GameObject> m_response_boxes;
 
     private void Start()
     {
-        // todo: use prefab
-        m_response_box_template.SetActive(false);
-
         m_response_boxes = new List<GameObject>();
     }
 
@@ -28,7 +25,7 @@ public class ResponseUI : MonoBehaviour
                 continue;
             }
 
-            GameObject response_box = Instantiate(m_response_box_template, m_panel_transform);
+            GameObject response_box = Instantiate(m_response_button_prefab, m_panel_transform);
             response_box.gameObject.SetActive(true);
             response_box.GetComponentInChildren<TMP_Text>().text = response.m_text;
             response_box.GetComponentInChildren<Button>().onClick.AddListener(() => OnResponseSelected(response));

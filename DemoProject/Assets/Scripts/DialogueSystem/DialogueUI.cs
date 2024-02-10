@@ -3,14 +3,15 @@ using System.Collections;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private DialogueBox m_dialogue_box;
+    [SerializeField] private ResponseUI m_response_handler;
 
     public static bool m_is_showing { get; private set; }
-
-    private ResponseUI m_response_handler;
 
     private Conversation m_current_conversation;
 
@@ -19,9 +20,27 @@ public class DialogueUI : MonoBehaviour
     public static bool m_can_show_next_text;
     public static bool m_next_text_force_fadein;
 
+    private static Selectable m_current_selectable;
+    public static void SetCurrentSelectable(Selectable selectable)
+    {
+        m_current_selectable = selectable;
+    }
+
+    private void Update()
+    {
+        if(EventSystem.current.currentSelectedGameObject == null)
+        {
+            if(m_current_selectable != null)
+            {
+                m_current_selectable.Select();
+            }
+        }
+    }
+
+
     private void Start()
     {
-        m_response_handler = GetComponentInChildren<ResponseUI>();
+        m_select_cursor_transform.gameObject.SetActive(false);
     }
 
     public void StartConversation(Conversation conversation)
@@ -140,4 +159,24 @@ public class DialogueUI : MonoBehaviour
     }
 
     public static bool CanShowNextDialogue() => m_can_show_next_text;
+
+    #region select cursor
+
+    [SerializeField] private RectTransform m_select_cursor_transform;
+    public static void SetSelectedCursorPosition(Vector3 position)
+    {
+        if(!s_instance.m_select_cursor_transform.gameObject.activeSelf)
+        {
+            s_instance.m_select_cursor_transform.gameObject.SetActive(true);
+        }
+
+        s_instance.m_select_cursor_transform.position = position;
+    }
+
+    public void PlaySelectCursorAnimation()
+    {
+        s_instance.m_select_cursor_transform.GetComponent<Animator>().SetTrigger(GameProperties.m_click_button_animation_hash);
+    }
+
+    #endregion select cursor
 }
