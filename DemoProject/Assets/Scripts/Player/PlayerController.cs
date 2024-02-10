@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-        if (m_dialogue_ui.m_is_showing)
+        if (DialogueUI.m_is_showing)
         {
             return;
         }
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (m_dialogue_ui.m_is_showing)
+        if (DialogueUI.m_is_showing)
         {
             return;
         }

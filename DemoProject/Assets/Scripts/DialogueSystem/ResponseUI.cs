@@ -52,7 +52,7 @@ public class ResponseUI : MonoBehaviour
         }
         else
         {
-            m_dialogue_panel.CloseDialogueBox();
+            DialogueUI.CloseDialogueBox(null);
         }
     }
 }
