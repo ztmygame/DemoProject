@@ -15,6 +15,6 @@ public class CinemachineBound : MonoBehaviour
         CinemachineConfiner confiner = GetComponent<CinemachineConfiner>();
         confiner.m_BoundingShape2D = confinerCollider;
 
-        confiner.InvalidatePathCache(); //Call this if the bounding shape's points change at runtime
+        confiner.InvalidatePathCache(); // call this if the bounding shape's points change at runtime
     }
 }

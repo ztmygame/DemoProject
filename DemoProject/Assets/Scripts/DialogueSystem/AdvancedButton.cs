@@ -10,6 +10,9 @@ public class AdvancedButton : Button
 
     private RectTransform m_rect_transform;
 
+    public Action<int> m_confirmed_action;
+    private int m_response_index;
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,8 +38,8 @@ public class AdvancedButton : Button
         base.OnSelect(eventData);
         m_select_border.enabled = true;
 
-        DialogueUI.SetCurrentSelectable(this);
-        DialogueUI.SetSelectedCursorPosition(transform.position + new Vector3(m_rect_transform.rect.width / 2.0f * 1.2f, m_rect_transform.rect.height / 2.0f, 0.0f));
+        DialogueUIManager.SetCurrentSelectable(this);
+        DialogueUIManager.SetSelectedCursorPosition(transform.position + new Vector3(m_rect_transform.rect.width / 2.0f * 1.2f, m_rect_transform.rect.height / 2.0f, 0.0f));
     }
 
     public override void OnDeselect(BaseEventData eventData)
@@ -48,11 +51,8 @@ public class AdvancedButton : Button
     public void OnButtonClicked()
     {
         m_animator.SetTrigger(GameProperties.m_click_button_animation_hash);
-        DialogueUI.GetInstance().PlaySelectCursorAnimation();
+        DialogueUIManager.GetInstance().PlaySelectCursorAnimation();
     }
-
-    public Action<int> m_confirmed_action;
-    private int m_response_index;
 
     public void Initialize(string text, int index, Action<int> confirm_callback)
     {
@@ -64,6 +64,7 @@ public class AdvancedButton : Button
         advanced_text.StartCoroutine(advanced_text.ShowText(text, AdvancedTMProUGUI.TextDisplayMethod.FadingIn));
     }
 
+    // animation event
     public void Confirm()
     {
         m_confirmed_action(m_response_index);

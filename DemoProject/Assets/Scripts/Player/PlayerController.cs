@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    public DialogueUI m_dialogue_ui;
+    public DialogueUIManager m_dialogue_ui;
 
     public IInteractable m_interactable;
 
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-        if (DialogueUI.m_is_showing)
+        if (DialogueUIManager.m_is_showing)
         {
             return;
         }
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (DialogueUI.m_is_showing)
+        if (DialogueUIManager.m_is_showing)
         {
             return;
         }

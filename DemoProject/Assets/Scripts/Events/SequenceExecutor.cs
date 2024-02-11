@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Executor", menuName = "Event/Executor")]
+[CreateAssetMenu(fileName = "EventSequence", menuName = "Event/Event Sequence")]
 public class EventSequenceExecutor : ScriptableObject
 {
     public Action<bool> m_on_finished;

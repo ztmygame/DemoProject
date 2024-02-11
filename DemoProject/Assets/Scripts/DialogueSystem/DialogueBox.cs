@@ -19,7 +19,6 @@ public class DialogueBox : MonoBehaviour
     [SerializeField] private GameObject m_next_cursor;
     private FadeEffect m_next_cursor_fade_effect;
     private Animator m_next_cursor_animator;
-    private static readonly int m_next_cursor_click_hash = Animator.StringToHash("Click");
 
     [Header("Configurations")]
     [SerializeField] private List<Sprite> m_background_images;
@@ -65,7 +64,7 @@ public class DialogueBox : MonoBehaviour
             if (Input.GetButtonDown("Cancel"))
             {
                 m_is_interactable = false;
-                m_next_cursor_animator.SetTrigger(m_next_cursor_click_hash);
+                m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
                 m_next_cursor_fade_effect.Fade(0.0f, GameplaySettings.m_next_cursor_fade_duration, null);
 
                 m_next_text_status_action(true);
@@ -73,7 +72,7 @@ public class DialogueBox : MonoBehaviour
             else if (Input.GetButtonDown("Submit"))
             {
                 m_is_interactable = false;
-                m_next_cursor_animator.SetTrigger(m_next_cursor_click_hash);
+                m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
                 m_next_cursor_fade_effect.Fade(0.0f, GameplaySettings.m_next_cursor_fade_duration, null);
 
                 m_next_text_status_action(false);
@@ -129,7 +128,7 @@ public class DialogueBox : MonoBehaviour
         if (!string.IsNullOrEmpty(m_text_content.text))
         {
             m_text_content.ClearCurrentText();
-            yield return new WaitForSecondsRealtime(GameplaySettings.m_character_fade_out_duration);
+            yield return YieldHelper.WaitForSeconds(GameplaySettings.m_character_fade_out_duration, true);
         }
 
         m_text_can_skip = dialogue.m_can_skip;

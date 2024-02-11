@@ -11,26 +11,25 @@ public class EventShowDialogue : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        DialogueUI.OpenDialogueBox(ShowDialogueText, m_dialogues.First());
+        DialogueUIManager.OpenDialogueBox(ShowDialogueText, m_dialogues.First());
     }
 
     public void ShowDialogueText()
     {
-        DialogueUI.GetInstance().StartCoroutine(StepThroughDialogueDataList());
+        DialogueUIManager.GetInstance().StartCoroutine(StepThroughDialogueDataList());
     }
 
     public IEnumerator StepThroughDialogueDataList()
     {
-        DialogueUI.m_next_text_force_fadein = false;
         for (int i = 0; i < m_dialogues.Count; ++i)
         {
-            DialogueUI.m_can_show_next_text = false;    // todo: move to dialogue ui controller
+            DialogueUIManager.SetCanShowNextDialogue(false);
 
             Dialogue dialogue = m_dialogues[i];
 
-            yield return DialogueUI.ShowDialogue(dialogue);
+            yield return DialogueUIManager.ShowDialogue(dialogue);
 
-            yield return new WaitUntil(() => DialogueUI.CanShowNextDialogue());
+            yield return new WaitUntil(() => DialogueUIManager.GetCanShowNextDialogue());
         }
 
         m_state = EventNodeState.Finished;

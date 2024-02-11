@@ -6,7 +6,7 @@ public class EventCloseDialogueBox : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        DialogueUI.CloseDialogueBox(OnDialogueBoxClosed);
+        DialogueUIManager.CloseDialogueBox(OnDialogueBoxClosed);
         m_state = EventNodeState.Finished;
     }
 

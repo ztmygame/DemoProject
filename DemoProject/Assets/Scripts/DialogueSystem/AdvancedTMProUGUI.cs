@@ -239,11 +239,11 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
             // take a pause for next character
             if (m_custom_text_preprocessor.m_pause_map.TryGetValue(m_typing_index, out float pause_time))
             {
-                yield return new WaitForSecondsRealtime(pause_time);
+                yield return YieldHelper.WaitForSeconds(pause_time, true);
             }
             else
             {
-                yield return new WaitForSecondsRealtime(1.0f / GameplaySettings.m_type_speed);
+                yield return YieldHelper.WaitForSeconds(1.0f / GameplaySettings.m_type_speed, true);
             }
         }
 
@@ -304,6 +304,8 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         if(m_typing_coroutine != null)
         {
             StopCoroutine(m_typing_coroutine);
+
+            ModifyCharacterAlphaAtIndex(m_typing_index++, (byte)(255));
 
             for (; m_typing_index < m_characterCount; ++m_typing_index)
             {

@@ -7,7 +7,6 @@ public class FadeEffect : MonoBehaviour
 {
     private CanvasGroup m_canvas_group;
 
-    [SerializeField]
     private AnimationCurve m_fading_curve;
 
     private Coroutine m_fade_coroutine;

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class DialogueEvnetsTest : MonoBehaviour, IInteractable
+public class DialogueEventsTest : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private EventSequenceExecutor executor;
 
     public void Interact(PlayerController player)
     {
-        executor.Initialize(null);
+        executor.Initialize(OnExecutorFinished);
         executor.Execute();
     }
 
@@ -23,10 +23,15 @@ public class DialogueEvnetsTest : MonoBehaviour, IInteractable
     {
         if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController player))
         {
-            if (player.m_interactable is DialogueInteractor dialogue_interactor && dialogue_interactor == this)
+            if (player.m_interactable is DialogueEventsTest dialogue_interactor && dialogue_interactor == this)
             {
-                player.m_interactable = null;
+                player.m_interactable = null;   
             }
         }
+    }
+
+    private void OnExecutorFinished(bool success)
+    {
+        Debug.Log("success: " + success);
     }
 }

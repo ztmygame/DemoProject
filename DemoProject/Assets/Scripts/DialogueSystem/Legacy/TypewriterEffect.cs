@@ -1,11 +1,12 @@
-using System.Collections;
-using TMPro;
-using UnityEngine;
-
 /*
  * [legacy]
  * Typewriter effect is now implemented in AdvancedTMProUGUI to accommodate TMPro's rich text (aka styled text).
  */
+
+/*
+using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class TypewriterEffect : MonoBehaviour
 {
@@ -36,3 +37,4 @@ public class TypewriterEffect : MonoBehaviour
         text_label.text = text;
     }
 }
+*/
