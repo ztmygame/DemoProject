@@ -32,7 +32,7 @@ public class FadeEffect : MonoBehaviour
             return;
         }
 
-        if (duration <= 0)
+        if (duration <= 0.0f)
         {
             m_render_opacity = a;
             callback?.Invoke();

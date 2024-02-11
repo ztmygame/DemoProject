@@ -25,13 +25,17 @@ public class ResponsePanel : MonoBehaviour
         AdvancedButton button = button_go.GetComponent<AdvancedButton>();
 
         button.gameObject.name = "ResponseButton" + index;
-        button.Initialize(response.m_text, index, confirm_callback);
+        button.Initialize(response.m_text, index);
 
         button.transform.SetParent(transform);
         button.transform.localScale = Vector3.one;
 
         button.onClick.AddListener(DisableAllButtons);
-        button.m_confirmed_action += (_) => { Close(); };
+
+        // prevent from creating buttons first and then deleting them during the response looping,
+        // first close the panel (delete the button) and then execute the next node.
+        button.m_confirmed_action = (_) => { Close(); };
+        button.m_confirmed_action += confirm_callback;
 
         m_buttons.Add(button);
     }
@@ -67,7 +71,9 @@ public class ResponsePanel : MonoBehaviour
     public void Close()
     {
         DialogueUIManager.SetCurrentSelectable(null);
-        m_fade_effect.Fade(0.0f, GameplaySettings.m_response_fade_out_duration, () =>
+
+        // close immediately to prevent coroutine timing errors during response looping
+        m_fade_effect.Fade(0.0f, 0.0f, () =>
         {
             foreach (AdvancedButton button in m_buttons)
             {

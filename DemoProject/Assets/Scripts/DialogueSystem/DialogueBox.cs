@@ -138,7 +138,7 @@ public class DialogueBox : MonoBehaviour
         m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
 
         AdvancedTMProUGUI.TextDisplayMethod next_text_method = dialogue.m_display_method;
-        if (next_force_fadein)
+        if (next_force_fadein && m_text_can_skip)   // can not force fading in a dialogue which can not be skipped
         {
             next_text_method = AdvancedTMProUGUI.TextDisplayMethod.FadingIn;
         }

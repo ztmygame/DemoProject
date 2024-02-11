@@ -18,7 +18,7 @@ MonoBehaviour:
     m_speaker_avatar: {fileID: 21300000, guid: b2299da4eb0be49f0843d0e1fbafbed1, type: 3}
     m_text: "\u4F60\u597D\uFF0C\u8FD9\u662F\u7B2C\u4E09\u53E5\u8BDD"
     m_display_method: 3
-    m_can_skip: 0
+    m_can_skip: 1
   - m_speaker_name: "\u4EBAH"
     m_speaker_avatar: {fileID: 21300000, guid: 2acedd98a2e4247569fc702d2b8fc91d, type: 3}
     m_text: "\u4F60\u597D\uFF0C\u8FD9\u662F\u7B2C\u56DB\u53E5\u8BDD"

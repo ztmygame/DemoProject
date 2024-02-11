@@ -54,9 +54,8 @@ public class AdvancedButton : Button
         DialogueUIManager.GetInstance().PlaySelectCursorAnimation();
     }
 
-    public void Initialize(string text, int index, Action<int> confirm_callback)
+    public void Initialize(string text, int index)
     {
-        m_confirmed_action = confirm_callback;
         m_response_index = index;
 
         AdvancedTMProUGUI advanced_text = GetComponentInChildren<AdvancedTMProUGUI>();

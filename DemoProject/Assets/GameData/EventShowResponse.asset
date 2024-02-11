@@ -23,3 +23,4 @@ MonoBehaviour:
   - m_text: "\u6211\u8981\u73A9\u539F\u795E"
     m_executor: {fileID: 0}
   m_default_select_index: -1
+  m_must_loop_all: 1
