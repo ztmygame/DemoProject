@@ -101,12 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c52bd62ea7f3f4287e9b99a561575c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fading_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &751944643623292585
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +234,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
   m_text_fade_effect: {fileID: 9114057388710027993}
@@ -268,12 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c52bd62ea7f3f4287e9b99a561575c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fading_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &2687233994115018117
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,8 +374,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -120, y: 40}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -120, y: 10}
+  m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8832630422979200992
 CanvasRenderer:
@@ -417,7 +405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 794433067, guid: ac7458d2cb4a14fdc96aecf7eb73bffe, type: 3}
+  m_Sprite: {fileID: -760543531, guid: ac7458d2cb4a14fdc96aecf7eb73bffe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -472,30 +460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c52bd62ea7f3f4287e9b99a561575c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fading_curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &7065596790816032715
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,8 +496,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 200, y: -10}
-  m_SizeDelta: {x: -400, y: -80}
+  m_AnchoredPosition: {x: 160, y: -10}
+  m_SizeDelta: {x: -480, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2377438397866591467
 CanvasRenderer:
@@ -555,12 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c52bd62ea7f3f4287e9b99a561575c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fading_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &8753030537320737217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,8 +566,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 36
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -735,8 +693,8 @@ MonoBehaviour:
   m_next_cursor: {fileID: 5995442412429927725}
   m_background_images:
   - {fileID: 21300000, guid: 62d3c2f315ca34684bee407c5d62e2f6, type: 3}
-  - {fileID: 21300000, guid: dd1cd965876494cd6af70e2967e1cd1b, type: 3}
   - {fileID: 21300000, guid: f24106d9c66bc4a878aa0b2a7f8adf64, type: 3}
+  - {fileID: 21300000, guid: dd1cd965876494cd6af70e2967e1cd1b, type: 3}
 --- !u!114 &5816700071071799415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,12 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c52bd62ea7f3f4287e9b99a561575c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fading_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &8726659040834960298
 GameObject:
   m_ObjectHideFlags: 0

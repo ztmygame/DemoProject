@@ -1,11 +1,9 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    public DialogueUIManager m_dialogue_ui;
-
     public IInteractable m_interactable;
 
     private float m_input_x;
@@ -16,6 +14,13 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    // todo: move into scene manager
+    public void Start()
+    {
+        Screen.SetResolution(1920, 1080, false);
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
 
     public void Update()

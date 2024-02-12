@@ -72,7 +72,7 @@ public class AdvancedTextPreprocessor : ITextPreprocessor
             string value = match.Value[1..^1];
             if (float.TryParse(value, out float pause_time))
             {
-                int index = match.Index - other_label_index_offset - 1;
+                int index = match.Index - custom_label_index_offset - other_label_index_offset - 1;
                 if (index > 0)
                 {
                     m_pause_map[index] = pause_time;
@@ -323,6 +323,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         ruby.GetComponent<TextMeshProUGUI>().color = textInfo.characterInfo[ruby_text_info.m_begin_index].color;
         ruby.GetComponent<FadeEffect>().Fade(1.0f, (ruby_text_info.m_end_index - ruby_text_info.m_begin_index) * GameplaySettings.m_character_fade_in_duration, null);
         ruby.transform.localPosition = (textInfo.characterInfo[ruby_text_info.m_begin_index].topLeft + textInfo.characterInfo[ruby_text_info.m_end_index - 1].topRight) / 2.0f;
+        ruby.transform.localPosition = new Vector3(ruby.transform.localPosition.x, ruby.transform.localPosition.y - 10, ruby.transform.localPosition.z);
         m_ruby_text_objects.Add(ruby);
     }
 

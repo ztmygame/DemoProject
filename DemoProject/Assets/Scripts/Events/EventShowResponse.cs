@@ -14,6 +14,8 @@ public class EventShowResponse : EventNodeBase
 
     private List<bool> m_rensponse_looped;
 
+    public bool MuseLoopAll() => m_must_loop_all;
+
     public override void Initialize(Action<bool> on_finished)
     {
         base.Initialize(on_finished);
@@ -58,6 +60,6 @@ public class EventShowResponse : EventNodeBase
 
     public bool IsAllLooped()
     {
-        return !m_must_loop_all || m_rensponse_looped.All(x => x);
+        return m_rensponse_looped.All(x => x);
     }
 }
