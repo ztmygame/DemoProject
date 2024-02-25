@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         Screen.SetResolution(1920, 1080, false);
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        //SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
 
     public void Update()
